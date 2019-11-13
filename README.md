@@ -1,6 +1,8 @@
 # no_entry_layer
 
-A ros package that has two nodes: one for modifying a given map with gui parameters and publishing the modified map under /map topic; another node that subscribes to /map topic and maintains a server for /static_map service required for move_base.
+A ros package that has two nodes: 
+- one for modifying a given map with gui parameters and publishing the modified map under /map topic; 
+- another node that subscribes to /map topic and maintains a server for /static_map service required for move_base.
 
 ## Demo
 /no_entry_layer/demo/no_entry_layer2-2019-11-13_12.10.01.mp4 
