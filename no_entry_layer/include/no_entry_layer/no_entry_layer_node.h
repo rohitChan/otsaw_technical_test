@@ -48,12 +48,50 @@ namespace mapmodifier
 	 */
 	int cost_value, mask_lb_x, mask_lb_y, mask_rt_x, mask_rt_y;
 
-
+	/**
+	 * @brief      Initializes the node.
+	 *
+	 * @param      nodehandle
+	 */
 	void initialize(ros::NodeHandle &);
+
+	/**
+	 * @brief      callback for dynamic reconfigure
+	 *
+	 * @param      config  The configuration
+	 * @param[in]  level   The level
+	 */
 	void dynReconfgrCallback(no_entry_layer::carto_mask_configConfig &config, uint32_t level) ;
+
+	/**
+	 * @brief      Callback for original map subscription.
+	 *
+	 * @param[in]  map_input  The map input
+	 */
 	void mapCallback(const nav_msgs::OccupancyGrid &map_input);
+
+	/**
+	 * @brief      Apply gui costmap filter on the input map
+	 */
 	void processMaps();
+
+	/**
+	 * @brief      from occupancy grid pointer to cv::Mat
+	 *
+	 * @param[in]  map   The map
+	 *
+	 * @return     map in cv::Mat format
+	 */
 	cv::Mat mapToMat(const nav_msgs::OccupancyGrid *map);
+
+	/**
+	 * @brief      cv::Mat to occupancy grid
+	 *
+	 * @param[in]  mat      The matrix
+	 * @param      forInfo  The desired output map info
+	 *
+	 * @return     cv::Mat as occupancy grid
+	 */
 	nav_msgs::OccupancyGrid* matToMap(const Mat mat, nav_msgs::OccupancyGrid *forInfo);
 }
 
@@ -77,10 +115,29 @@ namespace staticMapService
 	 */
 	nav_msgs::OccupancyGrid new_map_occ_grid;
 
+	/**
+	 * @brief      Sends the received map.
+	 *
+	 * @param      req   The getMap request
+	 * @param      res   The map response
+	 *
+	 * @return     True if success
+	 */
 	bool sendModifiedMap(nav_msgs::GetMap::Request  &req,
          nav_msgs::GetMap::Response &res);
 
+	/**
+	 * @brief      Callback for map subscription
+	 *
+	 * @param[in]  map_input  The map input
+	 */
 	void mapCallback(const nav_msgs::OccupancyGrid &map_input);
+
+	/**
+	 * @brief      Initializes the given nodehandle.
+	 *
+	 * @param      n     
+	 */
 	void initialize(ros::NodeHandle &n);
 
 }

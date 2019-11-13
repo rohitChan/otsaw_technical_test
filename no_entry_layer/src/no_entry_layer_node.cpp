@@ -43,7 +43,6 @@ void mapmodifier::mapCallback(const nav_msgs::OccupancyGrid &map_input)
  */
 void mapmodifier::processMaps()
 {
-	std::cout << "processMaps in" << std::endl;	
 	/**
 	 * copying the unmodified map
 	 */

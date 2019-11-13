@@ -104,59 +104,11 @@ void mapmodifier::processMaps()
 	 */
 	int map_height = new_map_occ_grid.info.height;
 	int map_width = new_map_occ_grid.info.width;
-	// std::cout << "*new_map_occ_grid.data" << *new_map_occ_grid.data;
-	// for (std::vector<int8_t>::const_reverse_iterator iterator = new_map_occ_grid.data.rbegin();
- //      iterator != occupancyGrid.data.rend(); ++iterator) {
- //    size_t i = std::distance(new_map_occ_grid.data.rbegin(), iterator);
- //    data(i) = *iterator != -1 ? *iterator : NAN;
-	// }
-	// // std::vector<int8_t>::const_reverse_iterator iterator = new_map_occ_grid.data.rbegin();
-	// cv::Mat A(map_height, map_width, CV_8S, *iterator);
-	// cv::normalize(image, A, 0, 1, cv::NORM_MINMAX);
-    // cv::imshow("test", A);
-    // cv::waitKey(0);
-	
+
 	cv::Mat cv_map = mapmodifier::mapToMat(&new_map_occ_grid); 
     cv::imshow("test", cv_map);
     cv::waitKey(0);	
-	/**
-	 * Region identification for making map with input from rqt_reconfigure
-	 */
-	int pos_bottomleft_x, pos_bottomleft_y, pos_topright_x, pos_topright_y;
-	pos_bottomleft_x = mask_lb_x;
-	pos_bottomleft_y = mask_lb_y;
-	pos_topright_x = mask_rt_x;
-	pos_topright_y = mask_rt_y;
 
-	/**
-	 * If mask is desired in the given region put cost value in the desired region, only if it is unoccupied
-	 */
-	if (mask_on)
-	{
-		std::cout << "mask_on. " << std::endl;
-		for (int i = 0; i < map_width ; i++)
-		{
-			for (int j = 0; j < map_height ; j++)
-			{
-				{
-					if ((i > pos_bottomleft_x && j > pos_bottomleft_y)  && (i < pos_topright_x && j < pos_topright_y))
-					{
-						int a = new_map_occ_grid.data[(j-1)*map_width + i] ;
-						
-						if (new_map_occ_grid.data[(j-1)*map_width + i]  == 0)
-						{
-							new_map_occ_grid.data[(j-1)*map_width + i] = cost_value;				
-						}
-					}
-
-				}
-			}
-		}			
-	}
-	/**
-	 * Publish map as /new_map
-	 */
-	masked_map_pub.publish(new_map_occ_grid);
 }
 
 /**
