@@ -15,6 +15,13 @@ find_package(catkin REQUIRED
 	dynamic_reconfigure
 	nav_msgs)
 
+find_package(OpenCV 2 REQUIRED
+ NO_MODULE #Should be optional, tells CMake to use config mode
+   PATHS /usr/include/ # Tells CMake to look here
+   NO_DEFAULT_PATH #and don't look anywhere else
+)
+# include_directories(${OpenCV_INCLUDE_DIRS})
+   # target_link_libraries(my_awesome_library ${OpenCV_LIBRARIES})
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -128,6 +135,14 @@ ${catkin_INCLUDE_DIRS}
 add_executable(no_entry_layer_node src/no_entry_layer_node.cpp)
 add_dependencies(no_entry_layer_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(no_entry_layer_node ${catkin_LIBRARIES})
+
+add_executable(no_entry_service src/no_entry_service.cpp)
+add_dependencies(no_entry_service ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(no_entry_service ${catkin_LIBRARIES})
+
+add_executable(no_entry_cv src/no_entry_cv.cpp)
+add_dependencies(no_entry_cv ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(no_entry_cv ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/no_entry_layer.cpp

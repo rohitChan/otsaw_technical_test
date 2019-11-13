@@ -1,5 +1,5 @@
 #include <no_entry_layer/no_entry_layer_node.h>
-using namespace mapmodifier;
+
 
 /**
  * @brief      Getting input from rqt_reconfigure
@@ -23,8 +23,6 @@ void mapmodifier::dynReconfgrCallback(no_entry_layer::carto_mask_configConfig &c
 	mask_lb_y = config.mask_lb_y;
 	mask_rt_x = config.mask_rt_x;
 	mask_rt_y = config.mask_rt_y;
-	std::cout << "mask_on: " << mask_on << std::endl;
-	std::cout << "cost_value: " << cost_value << std::endl;	
 }
 
 
@@ -45,6 +43,7 @@ void mapmodifier::mapCallback(const nav_msgs::OccupancyGrid &map_input)
  */
 void mapmodifier::processMaps()
 {
+	std::cout << "processMaps in" << std::endl;	
 	/**
 	 * copying the unmodified map
 	 */
@@ -69,7 +68,6 @@ void mapmodifier::processMaps()
 	 */
 	if (mask_on)
 	{
-		std::cout << "mask_on. " << std::endl;
 		for (int i = 0; i < map_width ; i++)
 		{
 			for (int j = 0; j < map_height ; j++)
@@ -77,8 +75,6 @@ void mapmodifier::processMaps()
 				{
 					if ((i > pos_bottomleft_x && j > pos_bottomleft_y)  && (i < pos_topright_x && j < pos_topright_y))
 					{
-						int a = new_map_occ_grid.data[(j-1)*map_width + i] ;
-						
 						if (new_map_occ_grid.data[(j-1)*map_width + i]  == 0)
 						{
 							new_map_occ_grid.data[(j-1)*map_width + i] = cost_value;				
@@ -89,10 +85,6 @@ void mapmodifier::processMaps()
 			}
 		}			
 	}
-	/**
-	 * Publish map as /new_map
-	 */
-	masked_map_pub.publish(new_map_occ_grid);
 }
 
 /**
@@ -107,8 +99,8 @@ void mapmodifier::initialize(ros::NodeHandle &n)
 	mask_rt_x = 0;
 	mask_rt_y = 0;
 	cost_value = -1;
-	original_map_topic = "/map";
-	new_map_topic = "/masked_map";
+	original_map_topic = "/originalMap/map";
+	new_map_topic = "/map";
 	masked_map_pub = n.advertise<nav_msgs::OccupancyGrid>(new_map_topic, 1000);
 	map_sub = n.subscribe(original_map_topic, 1000, mapCallback);	
 }
@@ -120,18 +112,20 @@ int main(int argc, char **argv)
 	ros::Rate r(10);
 	dynamic_reconfigure::Server<no_entry_layer::carto_mask_configConfig> server;
 	dynamic_reconfigure::Server<no_entry_layer::carto_mask_configConfig>::CallbackType f;
-	f = boost::bind(&dynReconfgrCallback, _1, _2);
+	f = boost::bind(&mapmodifier::dynReconfgrCallback, _1, _2);
 	server.setCallback(f);
-	initialize(n);	
+	mapmodifier::initialize(n);	
 	while(ros::ok())
 	{
 		/**
 		 * If atleast first map is recieved
 		 */
-		if(map_received)
+		if (mapmodifier::map_received)
 		{
-			processMaps();
+			mapmodifier::processMaps();
+			mapmodifier::masked_map_pub.publish(mapmodifier::new_map_occ_grid);			
 		}
+
 		ros::spinOnce();
 		r.sleep();		
 

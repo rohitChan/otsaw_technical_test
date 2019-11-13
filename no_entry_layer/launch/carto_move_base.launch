@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+ <!-- Run the map server --> 
+	<arg name="map" default="$(find no_entry_layer)/maps/deutche_museuem.yaml" /> 
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" required="true" output="screen" ns="originalMap" />
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<rosparam file="$(find no_entry_layer)/config/global_costmap_param.yaml" command="load" /> 
+	</node>
+	<node name="no_entry_layer_node" pkg="no_entry_layer" type="no_entry_layer_node" output="screen" />
+	<node name="no_entry_service" pkg="no_entry_layer" type="no_entry_service" output="screen" />
+	<node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" output="screen" />			
+
+</launch>
+
+

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
-	<node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" output="screen" />			
-	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find no_entry_layer)/config/carto_mask_viz.rviz" required="true" />		
-	<node name="map_server" pkg="map_server" type="map_server" args="$(find no_entry_layer)/maps/deutche_museuem.yaml" required="true" output="screen" />
-	<node name="no_entry_layer_node" pkg="no_entry_layer" type="no_entry_layer_node" output="screen" />
+	<arg name="map" default="$(find no_entry_layer)/maps/deutche_museuem.yaml" /> 	
+	<!-- <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" output="screen" />			 -->
+	<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find no_entry_layer)/config/carto_mask_viz.rviz" required="true" />		 -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" required="true" output="screen" ns="originalMap" />
+	<!-- <node name="no_entry_layer_node" pkg="no_entry_layer" type="no_entry_layer_node" output="screen" /> -->
 </launch>
