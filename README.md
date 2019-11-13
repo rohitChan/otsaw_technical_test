@@ -6,7 +6,7 @@ A ros package that has two nodes:
 
 ## Demo
 /no_entry_layer/demo/no_entry_layer2-2019-11-13_12.10.01.mp4 
-Demo video showing the global_costmap in RViz with a static map, along with its real-time modification using user input of cost and modifying region parameters from gui.
+- Demo video showing the global_costmap in RViz with a static map, along with its real-time modification using user input of cost and modifying region parameters from gui.
 
 ## Nodes
 
