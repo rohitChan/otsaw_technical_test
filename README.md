@@ -35,12 +35,12 @@ A ros package that has two nodes:
 ```roslaunch no_entry_layer carto_move_base.launch``` 
 
 - Lauches following nodes:
-/move_base
-/no_entry_layer_node
-/no_entry_service
-/originalMap/map_server
-/rqt_gui
-/rviz
+* /move_base
+* /no_entry_layer_node
+* /no_entry_service
+* /originalMap/map_server
+* /rqt_gui
+* /rviz
 
 
 - Modify the costmap of a desired region with a desired costmap value using rqt_gui window after checking mask_on option.
