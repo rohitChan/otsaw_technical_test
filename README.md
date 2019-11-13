@@ -23,7 +23,11 @@ A ros package that has two nodes:
 
 ## Installation
 
-Just add to your workspace and do catkin_make. Dependencies are dynamic_reconfigure, move_base and nav_msgs. OpenCV2 is required for another node in progress. Please change the PATHS param for find_package(OpenCV 2 REQUIRED)  to your local path.
+- Add to your workspace and do catkin_make. 
+- Dependencies are dynamic_reconfigure, move_base and nav_msgs. 
+- OpenCV2 is required for another node in progress. 
+- Please change the PATHS param for find_package(OpenCV 2 REQUIRED)  to your local path or remove the executable no_entry_cv from CMakeLists.txt.
+
 ## Usage
 
 ```In terminal
@@ -39,8 +43,6 @@ Lauches following nodes:
 ```
 
 Modify the costmap of a desired region with a desired costmap value using rqt_gui window after checking mask_on option.
-
-Modify the cost value and masking region from rqt_reconfigure window.
 
 If the global_cost map does not change, try unselecting and selecting /global_costmap topic from move_base in rViz.
 
