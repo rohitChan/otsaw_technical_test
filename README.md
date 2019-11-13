@@ -31,8 +31,8 @@ A ros package that has two nodes:
 ## Usage
 
 - Requires the cartographer tutorial (roslaunch cartographer_ros demo_backpack_2d.launch with ros_bag) to be running for move_base to work.
-- ```In terminal
-roslaunch no_entry_layer carto_move_base.launch``` 
+- In terminal
+```roslaunch no_entry_layer carto_move_base.launch``` 
 
 - Lauches following nodes:
 /move_base
