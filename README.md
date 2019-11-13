@@ -13,7 +13,7 @@ A ros package that has two nodes:
 ### /no_entry_layer_node
 1. Subscribes map as nav_msgs/OccupancyGrid from "/originalMap/map". The map_server in the carto_move_base.launch file is launched under namespace "/originalMap".
 2. Gets input from dynamic reconfigure to process the map. If mask_on not selected, publishes original map as nav_msgs/OccupancyGrid at "/map" topic.
-3. If mask on selected, change the value of the elements inside the rectangle defined by the user. The first two parameters (mask_lb_x, mask_lb_y) are for left bottom vertex of the rectangle and the last two defines the top right vertex of the rectangle considering the map data as an image with same dimension as the map. The algorithm assumes that left bottom vertex x and y coordinates is always less than top right x and y coordinates, respectively. 
+3. If mask on selected, change the value of the unoccupied cells (data == 0) inside the rectangle defined by the user. The first two parameters (mask_lb_x, mask_lb_y) are for left bottom vertex of the rectangle and the last two defines the top right vertex of the rectangle considering the map data as an image with same dimension as the map. The algorithm assumes that left bottom vertex x and y coordinates is always less than top right x and y coordinates, respectively. 
 4. The node publishes the processed map as nav_msgs/OccupancyGrid at "/map" topic. 
 
 ### /no_entry_service
