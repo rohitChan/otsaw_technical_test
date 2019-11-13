@@ -2,6 +2,9 @@
 
 A ros package that has two nodes: one for modifying a given map with gui parameters and publishing the modified map under /map topic; another node that subscribes to /map topic and maintains a server for /static_map service required for move_base.
 
+## Demo
+/no_entry_layer/demo/no_entry_layer2-2019-11-13_12.10.01.mp4 
+Demo video showing the global_costmap in RViz with a static map, along with its real-time modification using user input of cost and modifying region parameters from gui.
 
 ## Nodes
 
@@ -36,5 +39,8 @@ Lauches following nodes:
 Modify the costmap of a desired region with a desired costmap value using rqt_gui window after checking mask_on option.
 
 Modify the cost value and masking region from rqt_reconfigure window.
+
+If the global_cost map does not change, try unselecting and selecting /global_costmap topic from move_base in rViz.
+
 ## License
 [BSD](http://www.linfo.org/bsdlicense.html)
