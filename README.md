@@ -30,22 +30,22 @@ A ros package that has two nodes:
 
 ## Usage
 
-Requires the cartographer tutorial (roslaunch cartographer_ros demo_backpack_2d.launch with ros_bag) to be running for move_base to work.
-```In terminal
+- Requires the cartographer tutorial (roslaunch cartographer_ros demo_backpack_2d.launch with ros_bag) to be running for move_base to work.
+- ```In terminal
 roslaunch no_entry_layer carto_move_base.launch 
-
-Lauches following nodes:
+```
+- Lauches following nodes:
 /move_base
 /no_entry_layer_node
 /no_entry_service
 /originalMap/map_server
 /rqt_gui
 /rviz
-```
 
-Modify the costmap of a desired region with a desired costmap value using rqt_gui window after checking mask_on option.
 
-If the global_cost map does not change, try unselecting and selecting /global_costmap topic from move_base in rViz.
+- Modify the costmap of a desired region with a desired costmap value using rqt_gui window after checking mask_on option.
+
+- If the global_cost map does not change, try unselecting and selecting /global_costmap topic from move_base in rViz.
 
 ## License
 [BSD](http://www.linfo.org/bsdlicense.html)
